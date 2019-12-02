@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试使用！！</title>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../lib/vue.js"></script>
+  <!-- 引入样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入组件库 -->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <script src="../lib/mock.js"></script>
+  <script src="../lib/vue-router.js"></script>
+
+  <style>
+    .btn {
+      margin-bottom: 15px;
+    }
+
+    .el-button {
+      margin-left: 10px;
+    }
+
+    .card1 {
+      margin-top: 20px;
+    }
+
+    .pagination {
+      margin-top: 10px;
+    }
+
+    .search {
+      width: 200px;
+    }
+
+    .pagination {}
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 人员循环 -->
+    <el-card class="card1">
+      <!-- 模糊查询 -->
+      <el-input class="search" v-model="input" placeholder="请输入内容" clearable>
+      </el-input>
+      <el-button icon="el-icon-search" circle @click="UserSearch"></el-button>
+      <!-- 按钮 -->
+      <el-button class="btn" type="primary" @click="UserAdd">新建</el-button>
+      <!-- 表格正文 -->
+      <el-table :data="tableData" style="width: 100%" stripe border ref="multipleTable">
+        <!-- 多选栏 -->
+        <el-table-column type="selection" width="50">
+        </el-table-column>
+        <el-table-column prop="Id" label="编号">
+        </el-table-column>
+        <el-table-column prop="Name" label="姓名">
+        </el-table-column>
+        <el-table-column prop="Age" label="年龄">
+        </el-table-column>
+        <el-table-column prop="School" label="学校">
+        </el-table-column>
+        <el-table-column prop="Remark" label="备注">
+        </el-table-column>
+
+
+        <!-- 操作组件 -->
+        <el-table-column label="操作" width="200">
+          <el-button type="primary" icon="el-icon-edit" circle @click="userUpdate()">
+          </el-button>
+          <el-button type="danger" icon="el-icon-delete" circle @click="userDelete()">
+          </el-button>
+        </el-table-column>
+      </el-table>
+
+      <div style="margin-top: 20px">
+        <el-button @click="toggleSelection()">取消选择</el-button>
+      </div>
+
+    </el-card>
+  </div>
+</body>
+
+<script>
+  var data = [
+    { Id: 1, Name: '小明', Age: 18, School: '光明小学', Remark: '三好学生' },
+    { Id: 2, Name: '小刚', Age: 20, School: '复兴中学', Remark: '优秀班干部' },
+    { Id: 3, Name: '吉姆格林', Age: 19, School: '光明小学', Remark: '吉姆做了汽车公司经理' },
+    { Id: 4, Name: '李雷', Age: 25, School: '复兴中学', Remark: '不老实的家伙' },
+    { Id: 5, Name: '韩梅梅', Age: 22, School: '光明小学', Remark: '在一起' }
+  ]
+
+
+  // 添加请求拦截器
+  axios.interceptors.request.use(function (config) {
+    // 在发送请求之前做些什么
+    config.headers.once = '79b8380f47284fcfb121f5c1f81310ee';
+    console.log(config)
+    return config;
+  }, function (error) {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  });
+
+  // axios.interceptors.response.use(function (response) {
+  //   // Do something with response data
+  //   console.log(response)
+  //   return response;
+  // }, function (error) {
+  //   // Do something with response error
+  //   return Promise.reject(error);
+  // });
+</script>
+
+<script>
+  axios.defaults.baseURL = 'http://10.3.0.172:11080';
+  axios.get('/ums/service/V1/res/users', {
+    params: {
+      startTime: '2017-06-21T08:00:00.000Z'
+    }
+  })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+</script>
+
+
+<script>
+
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      input: '',
+      // 元数据
+      tableData: '',
+      name: '',
+      // 多选
+      rowtemplate: { Id: 0, Name: '', Age: '', School: '', Remark: '' }
+    },
+    created: function () {
+      console.log('创建完毕')
+    },
+    mounted: function () {
+      console.log('挂载完毕')
+    },
+    methods: {
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
+      },
+      // 修改
+      userUpdate() {
+        console.log()
+      },
+      // 删除
+      userDelete() {
+        console.log('--删除--')
+      },
+      // 
+      UserSearch() {
+        console.log(this.input)
+      },
+      // 
+      UserAdd() {
+        console.log('+++++')
+        this.$alert('<strong>这是 <i>HTML</i> 片段</strong>', 'HTML 片段', {
+          dangerouslyUseHTMLString: true
+        });
+      },
+    }
+  })
+</script>
+
+</html>

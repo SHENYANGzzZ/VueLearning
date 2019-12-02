@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="../lib/vue.js"></script>
+
+    <style>
+        ul {
+            list-style: none;
+            /* display: inline-block; */
+        }
+
+        /* ol {
+            display: inline-block;
+        } */
+
+        p {
+            color: rgb(235, 66, 66);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- v-for 指令需要使用 item in items 形式的特殊语法，其中 items 是源数据数组，而 item 则是被迭代的数组元素的别名。  -->
+    <!-- v-for 默认使用 【就地更新】 原则 -->
+    <!-- 希望 Vue 跟踪每个节点，需要为每项提供一个唯一 key 属性 -->
+
+
+    <!-- 我们可以用 v-for 指令基于一个数组来渲染一个列表。  -->
+    <div id="app">
+        <ul type="I" v-for="person,index in persons">
+            <p>index(索引): {{ index }}</p>
+            <li>{{ person.id }}</li>
+            <li>{{ person.name }}</li>
+            <li>{{ person.age }}</li>
+            <li>{{ person.sex }}</li>
+        </ul>
+        <hr>
+        <ol type="I" v-for="person in persons">
+            <li>{{ person.id }}</li>
+            <li>{{ person.name }}</li>
+            <li>{{ person.age }}</li>
+            <li>{{ person.sex }}</li>
+        </ol>
+        <hr>
+
+        <!-- 也可以用 v-for 来遍历一个对象的属性 -->
+        <li v-for="value in object">
+            {{ value }}
+        </li>
+
+
+
+    </div>
+
+
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                persons: [  // for 
+                    {
+                        id: 1,
+                        name: '史蒂夫',
+                        age: 21,
+                        sex: '男'
+                    }, {
+                        id: 2,
+                        name: '爱尔兰特',
+                        age: 37,
+                        sex: '男'
+                    }, {
+                        id: 3,
+                        name: '王阳明',
+                        age: 16,
+                        sex: '男'
+                    }
+                ],
+                object: {
+                    no1: 1234567890,
+                    no2: '一二三四五六七八九零',
+                    no3: 'I II III IV V VI VII VIII IX X'
+                }
+            },
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

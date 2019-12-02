@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- 1. 先导入Vue包 (在head加入依赖没有闪烁问题 v-cloak )  -->
+    <script src="../lib/vue.js"></script>
+
+
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+
+
+
+<body>
+
+
+    <!-- 2.创建一个要控制的区域，属于 mvvm中的 V -->
+    <div id="app">
+        <!-- v-text 不存在闪烁问题 -->
+        <p v-cloak>》》》{{ msg }}《《《</p>
+        <h3 v-text="msg"> v-text ==> 这里的内容会自动被覆盖</h3>
+
+
+        <!-- {{ }}   插值表达式，可当占位符去理解 -->
+        <p>{{ msg1 }}</p>
+        <p>{{ msg2 }}</p>
+
+        <!-- v-text 转义为纯文本输出 ， v-html 可识别html语言输出 -->
+        <p v-html="html"></p>
+        <p v-text="html"></p>
+    </div>
+
+    <!-- 在 body 导包，由于加载顺序会闪烁出 插值表达式 的样式。 可用 v-cloak 解决-->
+    <!-- <script src="../lib/vue.js"></script> -->
+    <script>
+
+        /*  3.定义一个 Vue 实例，属于 mvvm 中的 VM ; 其中 data 属于 M (不同于MVC中的 M 代表数据库的数据模型)*/
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'Hello Vue ！！！',
+                msg1: '这是一个测试文件',
+                msg2: '今天晴空万里',
+                html: '<h1>你好</h1>'
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+
+
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+  <style>
+    table {
+      border: 1px solid rgb(255, 0, 0);
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    th,
+    td {
+      padding: 8px 16px;
+      border: 1px solid rgb(0, 0, 0);
+      text-align: left;
+    }
+
+    th {
+      background-color: rgb(192, 192, 192);
+      color: rgb(0, 0, 0);
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <div v-if="books.length">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>书籍名称</th>
+            <th>出版日期</th>
+            <th>价格</th>
+            <th>购买数量</th>
+            <th>操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in books">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.price | showPrice }}</td>
+            <td>
+              <button @click="downPrice(index)" :disabled="item.count == 1">-</button>
+              {{ item.count }}
+              <button @click="upPrice(index)">+</button>
+            </td>
+            <td><button @click="moveOne(index)">移除</button></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <h3>总价：{{ totalPrice | showPrice }}</h3>
+    </div>
+    <h2 v-else>
+      购物车空空如也，快去添加心爱的书籍吧！
+    </h2>
+
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        books: [
+          {
+            id: 1,
+            name: '《计算机导论》',
+            date: '2001-09',
+            price: 85.00,
+            count: 1
+          },
+          {
+            id: 2,
+            name: '《鲁滨逊漂流记》',
+            date: '2001-09',
+            price: 118.00,
+            count: 1
+          },
+          {
+            id: 3,
+            name: '《Java疯狂讲义》',
+            date: '2001-09',
+            price: 97.00,
+            count: 1
+          },
+          {
+            id: 4,
+            name: '《红楼梦》',
+            date: '2001-09',
+            price: 102.00,
+            count: 1
+          }
+        ],
+      },
+      methods: {
+        upPrice(index) {
+          this.books[index].count++
+        },
+        downPrice(index) {
+          this.books[index].count--
+        },
+        moveOne(index) {
+          this.books.splice(index, 1)
+        }
+      },
+      filters: {
+        showPrice(price) {
+          return '￥' + price.toFixed(2)
+        }
+      },
+      computed: {
+        totalPrice() {
+          let tp = 0
+          for (one of this.books) {
+            tp += one.price * one.count
+          }
+          return tp
+        }
+      }
+    })
+  </script>
+
+</body>
+
+</html>

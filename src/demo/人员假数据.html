@@ -35,8 +35,6 @@
     .search {
       width: 200px;
     }
-
-    .pagination {}
   </style>
 </head>
 
@@ -50,7 +48,7 @@
       <el-button icon="el-icon-search" circle @click="UserSearch"></el-button>
       <!-- 按钮 -->
       <el-button class="btn" type="primary" @click="UserAdd">新建</el-button>
-      <el-table :data="tableData" style="width: 100%" stripe border ref="multipleTable">
+      <el-table :data="tableData" style="width: 100%" stripe ref="multipleTable">
         <el-table-column type="selection" width="50">
         </el-table-column>
         <el-table-column prop="id" label="编号">
@@ -142,7 +140,7 @@
     }]
   })
   // 每一个层级比上一个多2个空格
-  console.log(JSON.stringify(data, null, 2))
+  // console.log(JSON.stringify(data, null, 2))
 
   var vm = new Vue({
     el: '#app',

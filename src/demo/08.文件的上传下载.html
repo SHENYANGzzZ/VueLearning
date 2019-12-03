@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../lib/vue.js"></script>
+  <script src=""></script>
+</head>
+
+<body>
+  <div id="app">
+    <div v-for="item in file">
+      <button @click="downloadClick(item)" slot="">{{ item }}</button>
+    </div>
+
+
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        file: {
+          id: 1,
+          filename: 'q'
+        }
+      },
+      methods: {
+        downloadClick(row) {
+          let entity = {
+            id: row.id,
+            filename: row.filename,
+          }
+          this.$http.post('/v1/FileManage/downloadFile', entity, { responseType: 'blob' }).then((response) => {
+            this.download(response.body, row)
+          });
+        },
+
+        // 下载文件
+        download(data, row) {
+          if (!data) {
+            return
+          }
+          let url = window.URL.createObjectURL(new Blob([data]))
+          let link = document.createElement('a')
+          link.style.display = 'none'
+          link.href = url
+          // 获取文件名
+          // download 属性定义了下载链接的地址而不是跳转路径
+          link.setAttribute('download', row.filename)
+          document.body.appendChild(link)
+          link.click()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

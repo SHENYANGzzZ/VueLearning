@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 定义一个数组
+    const array = [10, 20, 30, 40, 50, 60, 70, 80]
+
+    // // 高阶函数 filter ，要求：参数中的回调函数必须返回一个布尔值类型
+    // let newArray = array.filter((n) => {
+    //   return n < 50
+    // })
+
+    // // 高阶函数 map ，遍历数字中的元素并添加到新数字中
+    // let new2Array = newArray.map((n) => {
+    //   return n * 10
+    // })
+
+    // // 高阶函数 reduce ，对数组中的元素进行某种方式的汇总
+    // let new3Array = new2Array.reduce((preValue, n) => {
+    //   return preValue + n
+    // }, 0)
+
+    // 链式函数写法
+    // let newArray = array.filter((n) => {
+    //   return n < 50
+    // }).map((n) => {
+    //   return n * 10
+    // }).reduce((preValue, n) => {
+    //   return preValue + n
+    // })
+
+    let newArray = array.filter(n => n < 50).map(n => n * 10).reduce((pre, n) => pre + n)
+
+    console.log(newArray);
+        // console.log(new2Array);
+        // console.log(new3Array);
+  </script>
+
+</body>
+
+</html>

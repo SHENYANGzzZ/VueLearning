@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../lib/vue.js"></script>
+
+  <style>
+    .div1 {
+      height: 500 px;
+      background-color: cornflowerblue;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Vue  事件修饰符 -->
+  <!-- .stop  .prevent  .capture  .self   .once -->
+
+  <div id="app">
+    <div class="div1" @click="div1T">
+      <input type="button" value="点击" @click="btnAt" />
+    </div>
+
+
+    <a href="http://www.baidu.com" @click.prevent="touchAt">有问题去百度啊！</a>
+  </div>
+
+
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        div1T() {
+          console.log('触发 div 事件')
+        },
+        btnAt() {
+          console.log('触发 btn 事件')
+        },
+
+        touchAt() {
+          console.log('out  out  out')
+        }
+      }
+    })
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 父组件 -->
+  <div id="app">
+    <child ref="aaa"></child>
+    <button @click="clickBtn">按钮</button>
+  </div>
+
+  <!-- 子组件模板 -->
+  <template id="child">
+    <div style="border: 1px black solid;">
+      <h3>这里是子组件</h3>
+    </div>
+  </template>
+
+  <script>
+    const child = {
+      template: '#child',
+      data() {
+        return {
+          message: '我是子组件信息'
+        }
+      },
+      methods: {
+        logOut() {
+          alert('这个是子组件的方法')
+        }
+      }
+    }
+
+    // 父组件访问子组件对象，可以用  $refs  $children  两种方法。
+    // $children 方法访问通过数组下标，代码灵活性差。  这里用  $refs 方法演示
+    // 注意： $refs  方法需要子组件添加 ref 属性
+    const vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        child
+      },
+      methods: {
+        clickBtn() {
+          console.log(this.$refs.aaa.message);
+          this.$refs.aaa.logOut()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

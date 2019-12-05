@@ -10,15 +10,23 @@
 </head>
 
 <body>
-  <div id="app">
+  <div id="app" style="border: 1px lightblue solid;">
+    <h1>我是父组件</h1>
 
+    <!-- html 大小写不敏感，这里用 短横线 代替 -->
+    <child :child-info="rootInfo" :child-user="rootUser" />
 
   </div>
 
 
-  <template id="child">.
-    <div>
-      {{ childMessage }}
+  <!-- 子组件自定义模板 -->
+  <template id="child">
+    <div style="border: 1px pink solid;">
+      <h3>我是子组件</h3>
+      {{ childInfo }}
+      <ul v-for="item in childUser">
+        <li>{{ item.name }}</li>
+      </ul>
     </div>
   </template>
 
@@ -29,11 +37,18 @@
       template: '#child',
       data() {
         return {
-          childMessage: ''
         }
       },
+      // 通过 props 接受父组件的信息
       props: {
-
+        childInfo: {
+          type: String,
+          default: '默认值'
+        },
+        childUser: {
+          type: Array,
+          default: []
+        }
       }
     }
 
@@ -41,9 +56,15 @@
     const vm = new Vue({
       el: '#app',
       data: {
-        message: '这是父组件里的信息'
+        rootInfo: '这是父组件里的信息',
+        rootUser: [
+          { id: 1, name: '伤情最是晚凉天' },
+          { id: 2, name: '憔悴斯人不堪怜' }
+        ]
       },
-      components: {},
+      components: {
+        child
+      },
       methods: {}
     })
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 作用域插槽 ： 父组件替换插槽的标签，但是内容由子组件来提供 -->
+  <!-- 使用步骤： 1.首先子组件的 slot 插槽需要绑定一个属性来引用自己组件内部的属性
+                 2.在父组件中 用 slot-scope="" 来获取相应的属性-->
+
+
+
+  <div id="app">
+
+    <h1>子组件</h1>
+    <child></child>
+    <hr>
+
+    <child>
+      <div slot-scope="childValue">
+        {{ childValue.moonshine }} + {{ childValue.message }}
+      </div>
+    </child>
+
+    <child>
+      <div slot-scope="childValue">
+        {{ childValue.message }}
+      </div>
+    </child>
+
+
+    <child>
+      <div slot-scope="childValue">
+        {{ childValue.moonshine.join(' &&& ') }}
+      </div>
+    </child>
+
+  </div>
+
+
+
+  <template id="child">
+    <div>
+      <slot :moonshine="moonshine" :message="message">
+        我是子组件
+      </slot>
+    </div>
+  </template>
+
+
+  <script>
+    const child = {
+      template: '#child',
+      data() {
+        return {
+          moonshine: ['床前明月光', '疑似地上霜', '举头望明月', '低头思故乡'],
+          message: '我是子组件的信息'
+        }
+      }
+    }
+
+
+    const vm = new Vue({
+      el: '#app',
+      data: {},
+      components: {
+        child
+      }
+    })
+  </script>
+</body>
+
+</html>

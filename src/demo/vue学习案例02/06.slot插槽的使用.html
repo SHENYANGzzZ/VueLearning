@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="../../lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 自定义组件标签中间的内容会全部被渲染到预留的slot插槽中，
+    如果中间没有定义内容则会显示默认内容或者显示空白 -->
+  <div id="app">
+    <child><button>按钮</button></child>
+    <child></child>
+    <child><a href="http://www.baidu.com">有事情就去百度啊！</a></child>
+    <child></child>
+  </div>
+
+
+
+  <template id="child">
+    <div style="border:1px blue solid; margin: 10px;">
+      {{ message }}
+      <br>
+      <slot>这里是插槽预留的空间</slot>
+    </div>
+
+  </template>
+
+  <script>
+    const child = {
+      template: '#child',
+      data() {
+        return {
+          message: '这里是子组件'
+        }
+      }
+
+    }
+
+    const vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      components: {
+        child
+      }
+    })
+  </script>
+</body>
+
+</html>

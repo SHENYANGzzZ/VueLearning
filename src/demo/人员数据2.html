@@ -36,7 +36,6 @@
       width: 200px;
     }
 
-    .pagination {}
   </style>
 </head>
 
@@ -85,12 +84,41 @@
 </body>
 
 <script>
-  var data = [
-    { Id: 1, Name: '小明', Age: 18, School: '光明小学', Remark: '三好学生' },
-    { Id: 2, Name: '小刚', Age: 20, School: '复兴中学', Remark: '优秀班干部' },
-    { Id: 3, Name: '吉姆格林', Age: 19, School: '光明小学', Remark: '吉姆做了汽车公司经理' },
-    { Id: 4, Name: '李雷', Age: 25, School: '复兴中学', Remark: '不老实的家伙' },
-    { Id: 5, Name: '韩梅梅', Age: 22, School: '光明小学', Remark: '在一起' }
+  var data = [{
+      Id: 1,
+      Name: '小明',
+      Age: 18,
+      School: '光明小学',
+      Remark: '三好学生'
+    },
+    {
+      Id: 2,
+      Name: '小刚',
+      Age: 20,
+      School: '复兴中学',
+      Remark: '优秀班干部'
+    },
+    {
+      Id: 3,
+      Name: '吉姆格林',
+      Age: 19,
+      School: '光明小学',
+      Remark: '吉姆做了汽车公司经理'
+    },
+    {
+      Id: 4,
+      Name: '李雷',
+      Age: 25,
+      School: '复兴中学',
+      Remark: '不老实的家伙'
+    },
+    {
+      Id: 5,
+      Name: '韩梅梅',
+      Age: 22,
+      School: '光明小学',
+      Remark: '在一起'
+    }
   ]
 
 
@@ -113,26 +141,27 @@
   //   // Do something with response error
   //   return Promise.reject(error);
   // });
+
 </script>
 
 <script>
   axios.defaults.baseURL = 'http://10.3.0.172:11080';
   axios.get('/ums/service/V1/res/users', {
-    params: {
-      startTime: '2017-06-21T08:00:00.000Z'
-    }
-  })
+      params: {
+        startTime: '2017-06-21T08:00:00.000Z'
+      }
+    })
     .then(function (response) {
       console.log(response);
     })
     .catch(function (error) {
       console.log(error);
     });
+
 </script>
 
 
 <script>
-
   var vm = new Vue({
     el: '#app',
     data: {
@@ -141,7 +170,13 @@
       tableData: '',
       name: '',
       // 多选
-      rowtemplate: { Id: 0, Name: '', Age: '', School: '', Remark: '' }
+      rowtemplate: {
+        Id: 0,
+        Name: '',
+        Age: '',
+        School: '',
+        Remark: ''
+      }
     },
     created: function () {
       console.log('创建完毕')
@@ -180,6 +215,7 @@
       },
     }
   })
+
 </script>
 
 </html>
